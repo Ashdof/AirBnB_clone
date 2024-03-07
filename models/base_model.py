@@ -6,8 +6,7 @@ from datetime import datetime
 
 
 class BaseModel:
-    """
-    BaseModel
+    """BaseModel
 
     Description:
     This class models all attributes common to other classes
@@ -36,8 +35,7 @@ class BaseModel:
         self.updated_at = datetime.now()
 
     def to_dict(self):
-        """
-        Create a Dictionary Representation
+        """Create a Dictionary Representation
 
         Description:
         Creates a dictionary representation of this instance object.
@@ -56,8 +54,7 @@ class BaseModel:
         return dict_obj
 
     def __str__(self):
-        """
-        String Representation
+        """String Representation
 
         Description:
         Creates a string representation of this instance object.
