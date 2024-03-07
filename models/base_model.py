@@ -10,7 +10,7 @@ class BaseModel:
     BaseModel
 
     Description:
-    This class models all attributes are common to other classes
+    This class models all attributes common to other classes
     inheriting from this.
     """
 
@@ -57,7 +57,7 @@ class BaseModel:
 
     def __str__(self):
         """
-        A String Representation
+        String Representation
 
         Description:
         Creates a string representation of this instance object.
