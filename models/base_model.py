@@ -13,17 +13,28 @@ class BaseModel:
     inheriting from this.
     """
 
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         """Initialize Object
 
         Description:
         This attribute initializes the instance object with the id,
         date created and the date the instance object was updated
+
+        Args:
+        args (str): a variable-length argument.
+        kwargs (str): a key-word variable-length argument
         """
 
-        self.id = str(uuid4())
-        self.created_at = datetime.now()
-        self.updated_at = datetime.now()
+        if len(kwargs) != 0:
+            for key, value in kwargs.items():
+                if key != "__class__":
+                    if key in ["created_at", "updated_at"]:
+                        setattr(self, key, datetime.fromisoformat(value))
+                    else:
+                        setattr(self, key, value)
+        else:
+            self.id = str(uuid4())
+            self.created_at = self.updated_at = datetime.now()
 
     def save(self):
         """Save Object
