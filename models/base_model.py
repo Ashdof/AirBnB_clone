@@ -10,7 +10,7 @@ class BaseModel:
     BaseModel
 
     Description:
-    This class models all attributes are common to other classes
+    This class models all attributes common to other classes
     inheriting from this.
     """
 
@@ -36,8 +36,7 @@ class BaseModel:
         self.updated_at = datetime.now()
 
     def to_dict(self):
-        """
-        Create a Dictionary Representation
+        """Create a Dictionary Representation
 
         Description:
         Creates a dictionary representation of this instance object.
@@ -56,8 +55,7 @@ class BaseModel:
         return dict_obj
 
     def __str__(self):
-        """
-        A String Representation
+        """String Representation
 
         Description:
         Creates a string representation of this instance object.
