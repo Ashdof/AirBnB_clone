@@ -12,7 +12,7 @@ class FileStorage:
     Stores object instances of various classes to a json file
     """
 
-    __file_path = "obj_hub/file.json"
+    __file_path = "file.json"
     __objects = {}
 
     def all(self):
