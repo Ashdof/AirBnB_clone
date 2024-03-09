@@ -25,6 +25,8 @@ class BaseModel:
         kwargs (str): a key-word variable-length argument
         """
 
+        from models import storage
+        
         if len(kwargs) != 0:
             for key, value in kwargs.items():
                 if key != "__class__":
@@ -35,6 +37,7 @@ class BaseModel:
         else:
             self.id = str(uuid4())
             self.created_at = self.updated_at = datetime.now()
+            storage.new(self)
 
     def save(self):
         """Save Object
@@ -43,7 +46,10 @@ class BaseModel:
         This method tracks the date the instance object was updated
         """
 
+        from models import storage
+
         self.updated_at = datetime.now()
+        storage.save()
 
     def to_dict(self):
         """Create a Dictionary Representation
