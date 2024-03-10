@@ -3,6 +3,7 @@
 
 import cmd
 import json
+import shlex
 
 from models import storage
 from models.base_model import BaseModel
@@ -159,6 +160,50 @@ class HBNBCommand(cmd.Cmd):
                 if obj_name == arg[0]:
                     list_objs += [value.__str__()]
             print(list_objs)
+
+    def do_update(self, args):
+        """Update Instance Attributes
+
+        Description:
+        Updates the attributes of an instance of a given model
+        based on the model's name and id
+
+        Args:
+        args (model): the name and id of a given model
+        """
+
+        if not args:
+            print("** class name missing **")
+            return
+
+        argv = ""
+        for arg in args.split(","):
+            argv += arg
+
+        arg = shlex.split(argv)
+
+        if arg[0] not in HBNBCommand.cmds_models:
+            print("** class doesn't exist **")
+        elif len(arg) == 1:
+            print("** instance id missing **")
+        else:
+            all_objs = storage.all()
+
+            for key, value in all_objs.items():
+                obj_name = value.__class__.__name__
+                obj_id = value.id
+
+                if obj_name == arg[0] and obj_id == arg[1].strip('"'):
+                    if len(arg) == 2:
+                        print("** attribute name missing **")
+                    elif len(arg) == 3:
+                        print("** value missing **")
+                    else:
+                        setattr(value, arg[2], arg[3])
+                        storage.save()
+                    return
+
+            print("** no instance found **")
 
 
 if __name__ == "__main__":
