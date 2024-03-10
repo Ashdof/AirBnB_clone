@@ -143,10 +143,12 @@ class TestFileStorageMethods(unittest.TestCase):
             self.assertIn("Review." + rv.id, save_text)
 
     def test_save_with_arg(self):
+        """Test case for saving with None"""
         with self.assertRaises(TypeError):
             models.storage.save(None)
 
     def test_reload(self):
+        """Test case for reloading module instances"""
         bm = BaseModel()
         us = User()
         st = State()
