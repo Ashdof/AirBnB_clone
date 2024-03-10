@@ -21,27 +21,7 @@ class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb) "
     cmds_models = ["BaseModel", "User", "State", "City", "Amenity",
                    "Place", "Review"]
-    cmds = ["create", "show", "update", "destroy", "all", "count"]
-
-    def precmd(self, arg):
-        """Parse Input
-
-        Description:
-        Parses the command input
-
-        Args:
-        args (str): the input command
-        """
-
-        if "." in arg and "(" in arg and ")" in arg:
-            cls = arg.split(".")
-            cn = cls[1].split("(")
-            args = cn[1].split(")")
-
-            if cls[0] in HBNBCommand.cmds_models and cn[0] in HBNBCommand.cmds:
-                arg = cn[0] + " " + cls[0] + " " + args[0]
-
-        return arg
+    cmds = ["create", "show", "update", "destroy", "all"]
 
     def emptyline(self):
         """Pass
@@ -176,10 +156,6 @@ class HBNBCommand(cmd.Cmd):
         args (model): an optional model's name
         """
 
-        if not args:
-            print("** class name missing **")
-            return
-
         arg = args.split(" ")
 
         if arg[0] not in HBNBCommand.cmds_models:
@@ -238,28 +214,6 @@ class HBNBCommand(cmd.Cmd):
                     return
 
             print("** no instance found **")
-
-    def do_count(self, args):
-        """Count Instances
-
-        Description:
-        Counts the number of instances of a given model in the
-        file storage
-
-        Args:
-        args (str): the name of the model
-        """
-
-        count = 0
-        all_objs = storage.all()
-
-        for key, value in all_objs.items():
-            objs = key.split('.')
-
-            if objs[0] == args:
-                count += 1
-
-        print(count)
 
 
 if __name__ == "__main__":
