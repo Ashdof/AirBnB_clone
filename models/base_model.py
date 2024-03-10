@@ -26,7 +26,7 @@ class BaseModel:
         """
 
         from models import storage
-        
+
         if len(kwargs) != 0:
             for key, value in kwargs.items():
                 if key != "__class__":
