@@ -19,7 +19,8 @@ class HBNBCommand(cmd.Cmd):
     """Implementation of command line interface"""
 
     prompt = "(hbnb) "
-    cmds_models = ["BaseModel", "User",]
+    cmds_models = ["BaseModel", "User", "State", "City", "Amenity",
+                   "Place", "Review"]
     cmds = ["create", "show", "update", "destroy", "all"]
 
     def emptyline(self):
