@@ -133,6 +133,33 @@ class HBNBCommand(cmd.Cmd):
 
             print("** no instance found **")
 
+    def do_all(self, args):
+        """Print All Instances
+
+        Description:
+        Prints the string representation of all instances of a
+        given model. In the absence of a model, it prints all
+        instances of all models.
+
+        Args:
+        args (model): an optional model's name
+        """
+
+        arg = args.split(" ")
+
+        if arg[0] not in HBNBCommand.cmds_models:
+            print("** class doesn't exist **")
+        else:
+            all_objs = storage.all()
+            list_objs = []
+
+            for key, value in all_objs.items():
+                obj_name = value.__class__.__name__
+
+                if obj_name == arg[0]:
+                    list_objs += [value.__str__()]
+            print(list_objs)
+
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
