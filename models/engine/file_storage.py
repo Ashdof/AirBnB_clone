@@ -2,7 +2,10 @@
 """A storage module to store data objects"""
 
 import json
+import os
+
 from models.base_model import BaseModel
+from models.user import User
 
 
 class FileStorage:
@@ -60,19 +63,12 @@ class FileStorage:
 
         Description:
         Deserializes the JSON file to a dictionary of objects only if
-        the file exists. Otherwise, it does nothing.
-
-        Returns:
-        Nothing
+        the file exists.
         """
 
-        try:
-            with open(self.__file_path, "r", encoding="UTF-8") as obj_file:
-                objs = json.load(obj_file)
+        model_dicts = {"BaseModel": BaseModel, "User": User}
 
-            for key, value in objs.items():
-                obj_class_name = value.get("__class__")
-                obj = eval(obj_class_name + "(**value)")
-                self.__objects[key] = obj
-        except FileNotFoundError:
-            return
+        if os.path.exists(FileStorage.__file_path):
+            with open(FileStorage.__file_path, "r", encoding="UTF-8") as obj_f:
+                for key, value in json.load(obj_f).items():
+                    self.new(model_dicts[value["__class__"]](**value))
