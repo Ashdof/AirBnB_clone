@@ -21,7 +21,7 @@ class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb) "
     cmds_models = ["BaseModel", "User", "State", "City", "Amenity",
                    "Place", "Review"]
-    cmds = ["create", "show", "update", "destroy", "all"]
+    cmds = ["create", "show", "update", "destroy", "all", "count"]
 
     def precmd(self, arg):
         """Parse Input
@@ -238,6 +238,28 @@ class HBNBCommand(cmd.Cmd):
                     return
 
             print("** no instance found **")
+
+    def do_count(self, args):
+        """Count Instances
+
+        Description:
+        Counts the number of instances of a given model in the
+        file storage
+
+        Args:
+        args (str): the name of the model
+        """
+
+        count = 0
+        all_objs = storage.all()
+
+        for key, value in all_objs.items():
+            objs = key.split('.')
+
+            if objs[0] == args:
+                count += 1
+
+        print(count)
 
 
 if __name__ == "__main__":
