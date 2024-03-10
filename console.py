@@ -23,6 +23,26 @@ class HBNBCommand(cmd.Cmd):
                    "Place", "Review"]
     cmds = ["create", "show", "update", "destroy", "all"]
 
+    def precmd(self, arg):
+        """Parse Input
+
+        Description:
+        Parses the command input
+
+        Args:
+        args (str): the input command
+        """
+
+        if "." in arg and "(" in arg and ")" in arg:
+            cls = arg.split(".")
+            cn = cls[1].split("(")
+            args = cn[1].split(")")
+
+            if cls[0] in HBNBCommand.cmds_models and cn[0] in HBNBCommand.cmds:
+                arg = cn[0] + " " + cls[0] + " " + args[0]
+
+        return arg
+
     def emptyline(self):
         """Pass
 
@@ -155,6 +175,10 @@ class HBNBCommand(cmd.Cmd):
         Args:
         args (model): an optional model's name
         """
+
+        if not args:
+            print("** class name missing **")
+            return
 
         arg = args.split(" ")
 
